@@ -1,0 +1,380 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Palette
+ * -------
+ * Values are raw RGB channels so Tailwind's opacity modifiers keep working
+ * (`bg-slate-900/50`). The dark theme redefines the same names, which is why
+ * no component needs a single `dark:` variant.
+ *
+ * The neutral ramp is mirrored rather than replaced: 50 always means "the
+ * faintest surface" and 900 always means "the strongest text", in either
+ * theme. That is what lets 450 existing `text-slate-*` usages theme for free.
+ */
+
+@layer base {
+  :root {
+    color-scheme: light;
+
+    /* Neutrals — very slightly cool, so white panels read as clean, not blue. */
+    --n-50: 246 247 250;
+    --n-100: 237 239 244;
+    --n-200: 225 228 236;
+    --n-300: 201 206 217;
+    --n-400: 150 158 174;
+    --n-500: 104 113 131;
+    --n-600: 74 82 99;
+    --n-700: 56 63 77;
+    --n-800: 37 43 54;
+    --n-900: 20 25 33;
+    --n-950: 11 14 19;
+
+    /* Brand — a crisp azure, a little cooler and cleaner than the stock blue. */
+    --b-50: 239 244 255;
+    --b-100: 219 231 254;
+    --b-200: 192 212 253;
+    --b-300: 147 181 251;
+    --b-400: 96 145 248;
+    --b-500: 59 116 245;
+    --b-600: 37 90 232;
+    --b-700: 28 71 196;
+    --b-800: 29 61 158;
+    --b-900: 28 55 125;
+
+    --r-50: 254 242 242;
+    --r-100: 254 226 226;
+    --r-200: 254 202 202;
+    --r-300: 252 165 165;
+    --r-400: 248 113 113;
+    --r-500: 239 68 68;
+    --r-600: 220 38 38;
+    --r-700: 185 28 28;
+    --r-800: 153 27 27;
+
+    --e-50: 236 253 243;
+    --e-100: 209 250 229;
+    --e-200: 167 243 208;
+    --e-300: 110 231 183;
+    --e-400: 52 211 153;
+    --e-500: 16 185 129;
+    --e-600: 5 150 105;
+    --e-700: 4 120 87;
+    --e-800: 6 95 70;
+
+    --a-50: 255 251 235;
+    --a-100: 254 243 199;
+    --a-200: 253 230 138;
+    --a-300: 252 211 77;
+    --a-400: 251 191 36;
+    --a-500: 245 158 11;
+    --a-600: 217 119 6;
+    --a-700: 180 83 9;
+    --a-800: 146 64 14;
+
+    --p-50: 250 245 255;
+    --p-100: 243 232 255;
+    --p-200: 233 213 255;
+    --p-600: 147 51 234;
+    --p-700: 126 34 206;
+    --p-800: 107 33 168;
+
+    /* Surfaces */
+    --canvas: 246 247 250;
+    --panel: 255 255 255;
+    --raised: 250 251 253;
+    --line: 226 229 237;
+    --line-strong: 205 211 223;
+    --shadow: 15 23 42;
+
+    /* Solid actions, tuned against --on-solid rather than against a surface. */
+    --solid-brand: 37 90 232;
+    --solid-brand-hover: 28 71 196;
+    --solid-danger: 220 38 38;
+    --solid-danger-hover: 185 28 28;
+    --solid-success: 5 150 105;
+    --solid-success-hover: 4 120 87;
+    --on-solid: 255 255 255;
+  }
+
+  [data-theme='dark'] {
+    color-scheme: dark;
+
+    /* Mirrored neutrals: 50 is now the faintest *raised* tint, 900 the brightest text. */
+    --n-50: 26 30 38;
+    --n-100: 33 38 48;
+    --n-200: 45 51 63;
+    --n-300: 63 71 86;
+    --n-400: 116 126 143;
+    --n-500: 154 163 178;
+    --n-600: 184 192 205;
+    --n-700: 205 212 222;
+    --n-800: 227 232 239;
+    --n-900: 243 245 249;
+    --n-950: 255 255 255;
+
+    /* Accents lighten as the stop climbs, so hover states brighten on dark. */
+    --b-50: 22 33 56;
+    --b-100: 28 45 78;
+    --b-200: 36 60 110;
+    --b-300: 55 88 160;
+    --b-400: 88 130 240;
+    --b-500: 108 148 249;
+    --b-600: 125 163 251;
+    --b-700: 150 182 252;
+    --b-800: 178 202 253;
+    --b-900: 205 221 254;
+
+    --r-50: 58 25 27;
+    --r-100: 76 31 34;
+    --r-200: 106 40 44;
+    --r-300: 152 56 60;
+    --r-400: 235 105 108;
+    --r-500: 244 124 127;
+    --r-600: 248 145 148;
+    --r-700: 251 173 175;
+    --r-800: 253 199 200;
+
+    --e-50: 16 43 34;
+    --e-100: 19 56 43;
+    --e-200: 24 78 59;
+    --e-300: 32 112 84;
+    --e-400: 52 200 146;
+    --e-500: 65 216 160;
+    --e-600: 90 226 175;
+    --e-700: 130 236 197;
+    --e-800: 172 243 216;
+
+    --a-50: 56 38 12;
+    --a-100: 71 48 14;
+    --a-200: 98 66 18;
+    --a-300: 140 95 24;
+    --a-400: 236 168 46;
+    --a-500: 246 187 74;
+    --a-600: 250 203 110;
+    --a-700: 252 219 154;
+    --a-800: 253 232 190;
+
+    --p-50: 46 26 66;
+    --p-100: 60 34 88;
+    --p-200: 84 48 122;
+    --p-600: 191 141 249;
+    --p-700: 209 170 251;
+    --p-800: 226 200 253;
+
+    --canvas: 13 16 21;
+    --panel: 21 25 32;
+    --raised: 26 31 39;
+    --line: 44 51 63;
+    --line-strong: 63 71 86;
+    --shadow: 0 0 0;
+
+    --solid-brand: 45 104 240;
+    --solid-brand-hover: 62 121 247;
+    --solid-danger: 214 45 47;
+    --solid-danger-hover: 232 62 64;
+    --solid-success: 8 145 105;
+    --solid-success-hover: 16 165 120;
+    --on-solid: 255 255 255;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-canvas text-slate-900 antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
+    /* The theme flip should feel like a light change, not a page reload. */
+    transition: background-color 160ms ease-out, color 160ms ease-out;
+  }
+
+  /* Figures line up in columns wherever they are compared. */
+  .tabular,
+  table td,
+  table th {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* One focus treatment for every control in the app. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-500/60 ring-offset-2;
+    --tw-ring-offset-color: rgb(var(--panel));
+  }
+
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded-full border-[3px] border-solid border-transparent bg-slate-300 bg-clip-content;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::selection {
+    @apply bg-brand-500/25;
+  }
+}
+
+@layer components {
+  /* ------------------------------------------------------------- surfaces */
+
+  .card {
+    @apply rounded-xl border border-line bg-panel;
+  }
+
+  .card-header {
+    @apply flex flex-wrap items-center justify-between gap-3 border-b border-line px-5 py-4;
+  }
+
+  .card-title {
+    @apply text-md font-semibold tracking-[-0.01em] text-slate-900;
+  }
+
+  /* A faint inset panel for nested content: filters, summaries, empty slots. */
+  .well {
+    @apply rounded-lg border border-line bg-raised;
+  }
+
+  /* --------------------------------------------------------------- forms */
+
+  .form-label {
+    @apply mb-1.5 block text-sm font-medium text-slate-700;
+  }
+
+  .form-control {
+    @apply block w-full rounded-lg border border-line-strong bg-panel px-3 py-2 text-base text-slate-900
+      shadow-[0_1px_1px_rgb(var(--shadow)/0.03)] transition
+      placeholder:text-slate-500
+      hover:border-slate-300
+      focus:border-brand-500 focus:outline-none focus:ring-4 focus:ring-brand-500/15
+      disabled:cursor-not-allowed disabled:border-line disabled:bg-slate-50 disabled:text-slate-500;
+  }
+
+  .form-control-error {
+    @apply border-red-400 hover:border-red-400 focus:border-red-500 focus:ring-red-500/15;
+  }
+
+  .form-hint {
+    @apply mt-1.5 text-xs text-slate-500;
+  }
+
+  .form-error {
+    @apply mt-1.5 text-xs font-medium text-red-600;
+  }
+
+  /* ---------------------------------------------------------- navigation */
+
+  .nav-link {
+    @apply relative flex items-center gap-2.5 rounded-lg px-2.5 py-[7px] text-sm font-medium
+      text-slate-600 transition-colors duration-100
+      hover:bg-slate-100 hover:text-slate-900;
+  }
+
+  /*
+   * The active item is a soft tint with a short rule at its leading edge,
+   * rather than a saturated bar. It marks position without shouting.
+   */
+  .nav-link-active {
+    @apply bg-brand-50 font-semibold text-brand-700 hover:bg-brand-50 hover:text-brand-700;
+  }
+
+  .nav-link-active::before {
+    @apply absolute left-0 top-1/2 h-4 w-[3px] -translate-y-1/2 rounded-r-full bg-brand-600 content-[''];
+  }
+
+  .nav-section-label {
+    @apply mb-1 px-2.5 text-2xs font-semibold uppercase tracking-[0.08em] text-slate-400;
+  }
+
+  /* --------------------------------------------------------------- table */
+
+  .table-wrap {
+    @apply w-full overflow-x-auto;
+  }
+
+  .data-table {
+    @apply w-full min-w-[720px] border-collapse text-base;
+  }
+
+  /*
+   * No filled header band. A hairline and a small capitalised label separate
+   * the header from the body with far less ink.
+   */
+  .data-table thead th {
+    @apply whitespace-nowrap border-b border-line bg-transparent px-4 pb-2.5 pt-3 text-left
+      text-2xs font-semibold uppercase tracking-[0.06em] text-slate-500;
+  }
+
+  .data-table tbody td {
+    @apply border-b border-line px-4 py-3 align-middle text-base text-slate-700;
+  }
+
+  .data-table tbody tr {
+    @apply transition-colors duration-75;
+  }
+
+  .data-table tbody tr:hover {
+    @apply bg-slate-50;
+  }
+
+  .data-table tbody tr:last-child td {
+    @apply border-b-0;
+  }
+
+  /* ------------------------------------------------------------- controls */
+
+  .icon-btn {
+    @apply inline-flex h-8 w-8 items-center justify-center rounded-lg transition-colors duration-100;
+  }
+
+  /* A quiet keyboard-shortcut chip. */
+  .kbd {
+    @apply inline-flex h-5 min-w-5 items-center justify-center rounded border border-line bg-raised px-1.5
+      font-mono text-2xs font-medium text-slate-500;
+  }
+}
+
+@layer utilities {
+  /* A flat placeholder block. No sweeping highlight passing over it. */
+  .skeleton {
+    @apply rounded-md bg-slate-200;
+  }
+
+  /* Hide content visually but keep it available to screen readers. */
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+}
